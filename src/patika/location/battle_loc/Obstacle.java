@@ -1,6 +1,6 @@
 package patika.location.battle_loc;
 
-public class Obstacle {
+public abstract class Obstacle {
     private int id;
     private int damage;
     private int health;
