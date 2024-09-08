@@ -6,7 +6,6 @@ public class Obstacle {
     private int health;
     private String name;
     private int award;
-
     private int originalHealth;
 
     public Obstacle(int id, int damage, int health, String name,int award) {
