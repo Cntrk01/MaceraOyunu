@@ -13,5 +13,9 @@ public class Cave extends BattleLoc {
     @Override
     public void onLocation() {
         super.onLocation();
+        if (this.isLocationStatus()){
+            System.out.println("Yemek kazanıldı . Envantere eklendi...");
+            this.getPlayer().getInventory().setFood(true);
+        }
     }
 }

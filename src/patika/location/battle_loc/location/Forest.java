@@ -13,5 +13,9 @@ public class Forest extends BattleLoc {
     @Override
     public void onLocation() {
         super.onLocation();
+        if (this.isLocationStatus()){
+            System.out.println("Odun kazanıldı . Envantere eklendi...");
+            this.getPlayer().getInventory().setWood(true);
+        }
     }
 }

@@ -12,5 +12,9 @@ public class River extends BattleLoc {
     @Override
     public void onLocation() {
         super.onLocation();
+        if (this.isLocationStatus()){
+            System.out.println("Su kazanıldı . Envantere eklendi...");
+            this.getPlayer().getInventory().setWater(true);
+        }
     }
 }

@@ -24,6 +24,7 @@ public abstract class BattleLoc  extends Location {
     @Override
     public void onLocation() {
         int obsNumber = this.randomObstacleNumber();
+
         System.out.println("Şuan Buradasınız : " + this.getLocationName());
         System.out.println("Dikkatli Ol Burada  "+ obsNumber + " tane " + this.getObstacle().getName() + " Yaşıyor\n");
 

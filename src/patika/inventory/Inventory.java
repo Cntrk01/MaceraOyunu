@@ -8,6 +8,9 @@ import patika.weapon.Punch;
 public class Inventory {
     private BaseWeapon weapon;
     private BaseArmor armor;
+    private boolean water;
+    private boolean food;
+    private boolean wood;
 
     public Inventory() {
         this.weapon = new Punch("-1",0,0,"Yumruk");
@@ -29,4 +32,29 @@ public class Inventory {
     public void setArmor(BaseArmor armor) {
         this.armor = armor;
     }
+
+    public boolean isWater() {
+        return water;
+    }
+
+    public void setWater(boolean water) {
+        this.water = water;
+    }
+
+    public boolean isFood() {
+        return food;
+    }
+
+    public void setFood(boolean food) {
+        this.food = food;
+    }
+
+    public boolean isWood() {
+        return wood;
+    }
+
+    public void setWood(boolean wood) {
+        this.wood = wood;
+    }
+
 }

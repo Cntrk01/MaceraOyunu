@@ -118,7 +118,10 @@ public class Player {
                 "\nBloklama : " + this.getInventory().getArmor().getArmorBlock() +
                 "\nHasarınız : " + this.getTotalDamage() +
                 "\nSağlık : " + this.getHealth() +
-                "\nPara : " + this.getMoney()
+                "\nPara : " + this.getMoney() +
+                "\nSu : " + this.getInventory().isWater() +
+                "\nOdun : " + this.getInventory().isWood() +
+                "\nYemek : " + this.getInventory().isFood()
         );
     }
 

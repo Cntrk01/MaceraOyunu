@@ -15,7 +15,6 @@ public abstract class BaseArmor {
         this.armorPrice = armorPrice;
     }
 
-
     public void setPlayerArmorValue(Player player){
         player.setArmor(this.armorBlock);
         player.setMoney(player.getMoney() - this.getArmorPrice());

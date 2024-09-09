@@ -60,9 +60,9 @@ public class ToolStore extends Location {
         for (BaseWeapon baseWeapon : baseWeapons()){
             System.out.println(
                     "ID : " + baseWeapon.getGunId() +
-                            "\tİsim : " + baseWeapon.getGunName() +
-                            "\tHasar : " + baseWeapon.getGunDamage() +
-                            "\tPara : " + baseWeapon.getGunMoney()
+                    "\tİsim : " + baseWeapon.getGunName() +
+                    "\tHasar : " + baseWeapon.getGunDamage() +
+                    "\tPara : " + baseWeapon.getGunMoney()
             );
         }
         System.out.println("0 - Çıkış Yap");
@@ -110,7 +110,7 @@ public class ToolStore extends Location {
         System.out.println("\n---------------- Zırh ----------------\n");
         for (BaseArmor baseArmor : baseArmors()){
             System.out.println(
-                     "ID : " + baseArmor.getArmorId() +
+                    "ID : " + baseArmor.getArmorId() +
                     "\tİsim : " + baseArmor.getArmorName() +
                     "\tBlok : " + baseArmor.getArmorBlock() +
                     "\tPara : " + baseArmor.getArmorPrice());
