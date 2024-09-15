@@ -2,6 +2,7 @@ package patika.location.base;
 
 import patika.player.Player;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public abstract class Location {
@@ -54,5 +55,17 @@ public abstract class Location {
 
     public void setLocationName(String locationName) {
         this.locationName = locationName;
+    }
+
+    public int randomObstacleNumber(int maxSize){
+        Random r = new Random();
+        int randomNumber;
+        if (locationName.equals("Maden")){
+            randomNumber = r.nextInt(6 - 3 + 1) + 3;
+        }else{
+            randomNumber = r.nextInt(maxSize) + 1;
+        }
+        //0 gelirse + 1 , 1 gelirse + 1 şeklinde ki çalışma mantığı.
+        return randomNumber;
     }
 }

@@ -9,6 +9,7 @@ import patika.inventory.Inventory;
 import patika.location.base.Location;
 import patika.location.battle_loc.BattleLoc;
 import patika.location.battle_loc.location.Cave;
+import patika.location.battle_loc.location.Coal;
 import patika.location.battle_loc.location.Forest;
 import patika.location.battle_loc.location.River;
 import patika.location.normal_loc.SafeHouse;
@@ -56,7 +57,7 @@ public class Player {
     }
 
     public void selectLoc() {
-        Location[] locations = {new SafeHouse(this), new ToolStore(this),new Cave(this),new Forest(this),new River(this)};
+        Location[] locations = {new SafeHouse(this), new ToolStore(this),new Cave(this),new Forest(this),new River(this),new Coal(this)};
 
         while (true){
             printInfo();
@@ -66,7 +67,7 @@ public class Player {
             System.out.println("0 : Çıkış Yap -> Oyunu Sonlandır. ");
 
             for (Location location : locations) {
-                if (location instanceof Cave || location instanceof Forest || location instanceof River){
+                if (location instanceof BattleLoc) {
                     System.out.println("ID : " + location.getId() + "\t Lokasyon : " + location.getLocationName() +" \tDikkatli Ol Karşına  " + ((BattleLoc) location).getObstacle().getName() + " \tÇıkabilir" + " \tÖdül : " + ((BattleLoc) location).getAward());
                 }else{
                     System.out.println("ID : " + location.getId() + "\t Lokasyon : " + location.getLocationName());

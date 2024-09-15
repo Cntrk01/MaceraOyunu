@@ -11,6 +11,9 @@ import patika.weapon.Pistol;
 import patika.weapon.Rifle;
 import patika.weapon.Sword;
 
+import static patika.armor.base.BaseArmor.baseArmors;
+import static patika.weapon.base.BaseWeapon.baseWeapons;
+
 public class ToolStore extends Location {
     public ToolStore(Player player) {
         super(player, "Eşya Dükkanı","2");
@@ -115,13 +118,5 @@ public class ToolStore extends Location {
                     "\tBlok : " + baseArmor.getArmorBlock() +
                     "\tPara : " + baseArmor.getArmorPrice());
         }
-    }
-
-    private BaseWeapon[] baseWeapons(){
-        return new BaseWeapon[]{new Pistol(2, 10, "Pistol"), new Sword(3, 35, "Sword"), new Rifle(7, 45, "Rifle")};
-    }
-
-    private BaseArmor[] baseArmors(){
-        return new BaseArmor[]{new LightArmor("Hafif Zırh",1,15),new MediumArmor("Orta Zırh",3,25),new HeavyArmor("Hafif Zırh",5,40)};
     }
 }

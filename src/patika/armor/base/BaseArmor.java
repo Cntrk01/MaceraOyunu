@@ -1,5 +1,8 @@
 package patika.armor.base;
 
+import patika.armor.HeavyArmor;
+import patika.armor.LightArmor;
+import patika.armor.MediumArmor;
 import patika.player.Player;
 
 public abstract class BaseArmor {
@@ -57,5 +60,9 @@ public abstract class BaseArmor {
 
     public void setArmorPrice(int armorPrice) {
         this.armorPrice = armorPrice;
+    }
+
+    public static BaseArmor[] baseArmors(){
+        return new BaseArmor[]{new LightArmor("Hafif Zırh",1,15),new MediumArmor("Orta Zırh",3,25),new HeavyArmor("Ağır Zırh",5,40)};
     }
 }

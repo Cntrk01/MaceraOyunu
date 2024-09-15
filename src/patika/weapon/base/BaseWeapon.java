@@ -1,6 +1,9 @@
 package patika.weapon.base;
 
 import patika.player.Player;
+import patika.weapon.Pistol;
+import patika.weapon.Rifle;
+import patika.weapon.Sword;
 
 public abstract class BaseWeapon {
     private String gunId;
@@ -62,5 +65,9 @@ public abstract class BaseWeapon {
 
     public void setGunName(String gunName) {
         this.gunName = gunName;
+    }
+
+    public static BaseWeapon[] baseWeapons(){
+        return new BaseWeapon[]{new Pistol(2, 10, "Tabanca"), new Sword(3, 35, "Kılıç"), new Rifle(7, 45, "Tüfek")};
     }
 }

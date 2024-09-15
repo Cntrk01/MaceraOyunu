@@ -3,8 +3,6 @@ package patika.location.battle_loc;
 import patika.location.base.Location;
 import patika.player.Player;
 
-import java.util.Random;
-
 public abstract class BattleLoc  extends Location {
     private Obstacle obstacle;
     private String award;
@@ -17,13 +15,9 @@ public abstract class BattleLoc  extends Location {
         this.maxObstacle = maxObstacle;
     }
 
-    public BattleLoc(Player player, String locationName, String id) {
-        super(player, locationName, id);
-    }
-
     @Override
     public void onLocation() {
-        int obsNumber = this.randomObstacleNumber();
+        int obsNumber = this.randomObstacleNumber(this.getMaxObstacle());
 
         System.out.println("Şuan Buradasınız : " + this.getLocationName());
         System.out.println("Dikkatli Ol Burada  "+ obsNumber + " tane " + this.getObstacle().getName() + " Yaşıyor\n");
@@ -33,14 +27,12 @@ public abstract class BattleLoc  extends Location {
 
         while (!validInput) {
             System.out.print("<S>avaş veya <K>aç : ");
-
                 selectCase = input.nextLine().toUpperCase();
                 if (selectCase.equals("S") || selectCase.equals("K")) {
                     validInput = true;
                 } else {
                     System.out.println("Hatalı giriş! Lütfen 'S' veya 'K' girin.");
                 }
-
         }
 
         switch (selectCase) {
@@ -67,8 +59,10 @@ public abstract class BattleLoc  extends Location {
 
     public boolean combat(int obsNumber){
         boolean status = false;
-        for (int i = 1 ; i<obsNumber;i++){
-            System.out.println("----------"+i + " .Atak---------------");
+        int atackCounter = 1;
+
+        do {
+            System.out.println("----------"+atackCounter + " .Atak---------------");
             //Bunu yapma sebebimiz 1.canavar öldükten sonra while loop bitiyor ama bizim daha canavarımız olduğu için tekrar can setlemesi yapıyoruz.
             this.getObstacle().setHealth(this.getObstacle().getOriginalHealth());
 
@@ -86,29 +80,24 @@ public abstract class BattleLoc  extends Location {
 
                     if (selectCombat.equals("V") || selectCombat.equals("K")) {
                         validInput = true;
+
+                        if (Math.random() < 0.5) {
+                            System.out.println("İlk vuruş oyuncuda!");
+                            playerHit();
+                        } else {
+                            System.out.println("İlk vuruş canavarda!");
+                            obstacleHit();
+                        }
                     } else {
                         System.out.println("Hatalı giriş! Lütfen 'V' veya 'K' girin.");
                     }
                 }
-
                 switch (selectCombat) {
                     case "V":
-                        System.out.println("Siz Vurdunuz...");
-
-                        this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
-
-                        afterHit();
+                        playerHit();
 
                         if (this.getObstacle().getHealth() > 0) {
-                            System.out.println("Canavar Size Vurdu...");
-
-                            int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().armor().getArmorBlock();
-
-                            if (obstacleDamage < 0) {
-                                obstacleDamage = 0;
-                            }
-                            this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
-                            afterHit();
+                            obstacleHit();
                         }
                         break;
 
@@ -119,21 +108,43 @@ public abstract class BattleLoc  extends Location {
             }
 
             if (this.getObstacle().getHealth()<this.getPlayer().getHealth()){
-                if (i == obsNumber-1){
+                if (atackCounter == obsNumber-1){
                     status = true;
                 }
-                System.out.println("Tebrikler Düşmanı Yendiniz...");
+                System.out.println("Tebrikler "+ atackCounter +". Düşmanı Yendiniz...");
                 System.out.println(this.getObstacle().getAward() + " para kazandınız");
                 this.getPlayer().setMoney(this.getPlayer().getMoney()+this.getObstacle().getAward());
                 System.out.println("Güncel Paranız : " + this.getPlayer().getMoney());
             }else{
                 status=false;
             }
-        }
+
+            atackCounter++;
+
+        } while (atackCounter <= obsNumber);
+
         return status;
     }
 
-    private void afterHit() {
+    private void obstacleHit(){
+        System.out.println("Canavar Size Vurdu...");
+
+        int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().armor().getArmorBlock();
+
+        if (obstacleDamage < 0) {
+            obstacleDamage = 0;
+        }
+        this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
+        reportHp();
+    }
+
+    private void playerHit(){
+        System.out.println("Siz Vurdunuz...");
+        this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
+        reportHp();
+    }
+
+    private void reportHp() {
         System.out.println("Canınız : " +this.getPlayer().getHealth());
         System.out.println(this.getObstacle().getName() + " Canı : " + this.getObstacle().getHealth());
         System.out.println();
@@ -156,12 +167,6 @@ public abstract class BattleLoc  extends Location {
         System.out.println("Zırh : " + this.getPlayer().armor().getArmorName());
         System.out.println("Bloklama : " + this.getPlayer().armor().getArmorBlock());
         System.out.println();
-    }
-
-    public int randomObstacleNumber(){
-        Random r = new Random();
-        //0 gelirse + 1 , 1 gelirse + 1 şeklinde ki çalışma mantığı.
-        return r.nextInt(this.getMaxObstacle()) + 1;
     }
 
     public Obstacle getObstacle() {
