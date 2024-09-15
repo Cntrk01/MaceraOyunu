@@ -59,35 +59,39 @@ public abstract class BattleLoc  extends Location {
 
     public boolean combat(int obsNumber){
         boolean status = false;
-        int atackCounter = 1;
+        int attackCounter = 1;
+        boolean firstTimeShoot = false;
 
-        do {
-            System.out.println("----------"+atackCounter + " .Atak---------------");
+        while (attackCounter <= obsNumber){
+            //System.out.println("----------"+atackCounter + " .Atak---------------");
             //Bunu yapma sebebimiz 1.canavar öldükten sonra while loop bitiyor ama bizim daha canavarımız olduğu için tekrar can setlemesi yapıyoruz.
             this.getObstacle().setHealth(this.getObstacle().getOriginalHealth());
+            firstTimeShoot = true;
 
             playerStats();
             obstacleStats();
 
             while (this.getPlayer().getHealth() > 0 && this.getObstacle().getHealth() > 0) {
                 String selectCombat = "";
-                boolean validInput = false;
+                boolean validInput = true;
 
-                // Geçerli bir giriş alınana kadar döngü devam eder
-                while (!validInput) {
+                while (validInput) {
                     System.out.print("<V>ur veya <K>aç : ");
                     selectCombat = input.nextLine().toUpperCase();
 
                     if (selectCombat.equals("V") || selectCombat.equals("K")) {
-                        validInput = true;
+                        validInput = false;
 
-                        if (Math.random() < 0.5) {
-                            System.out.println("İlk vuruş oyuncuda!");
-                            playerHit();
-                        } else {
-                            System.out.println("İlk vuruş canavarda!");
-                            obstacleHit();
-                        }
+                       if (firstTimeShoot){
+                           if (Math.random() < 0.5) {
+                               System.out.println("İlk vuruş oyuncuda!");
+                               playerHit();
+                           } else {
+                               System.out.println("İlk vuruş canavarda!");
+                               obstacleHit();
+                           }
+                           firstTimeShoot=false;
+                       }
                     } else {
                         System.out.println("Hatalı giriş! Lütfen 'V' veya 'K' girin.");
                     }
@@ -100,7 +104,6 @@ public abstract class BattleLoc  extends Location {
                             obstacleHit();
                         }
                         break;
-
                     case "K":
                         System.out.println("Geri dönüldü.");
                         return false; // Döngüden çıkış yapar
@@ -108,21 +111,19 @@ public abstract class BattleLoc  extends Location {
             }
 
             if (this.getObstacle().getHealth()<this.getPlayer().getHealth()){
-                if (atackCounter == obsNumber-1){
+                if (attackCounter == obsNumber-1){
                     status = true;
                 }
-                System.out.println("Tebrikler "+ atackCounter +". Düşmanı Yendiniz...");
+                System.out.println("Tebrikler "+ attackCounter +". Düşmanı Yendiniz...");
                 System.out.println(this.getObstacle().getAward() + " para kazandınız");
                 this.getPlayer().setMoney(this.getPlayer().getMoney()+this.getObstacle().getAward());
                 System.out.println("Güncel Paranız : " + this.getPlayer().getMoney());
+
             }else{
                 status=false;
             }
-
-            atackCounter++;
-
-        } while (atackCounter <= obsNumber);
-
+            attackCounter++;
+        }
         return status;
     }
 
